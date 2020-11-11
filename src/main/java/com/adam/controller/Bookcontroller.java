@@ -30,7 +30,7 @@ public class Bookcontroller {
         book.setBookDate(bookDate);
         book.setBookAmount(1);
         bookRepository.save(book);
-        return "Book Saved";
+        return "BookSaved";
     }
 
     @DeleteMapping(path = "/deleteByBookId") // Map ONLY Delete All Requests
