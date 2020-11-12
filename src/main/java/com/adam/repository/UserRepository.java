@@ -4,7 +4,6 @@ import com.adam.model.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
 import javax.transaction.Transactional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {

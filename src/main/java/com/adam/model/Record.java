@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
 public class Record {
@@ -20,7 +20,9 @@ public class Record {
 
     private Timestamp returnDate;
 
-    private Integer bookstatus;
+    private Timestamp actualReturnDate;
+
+    private Integer bookStatus;
 
     public Integer getId() {
         return id;
@@ -62,11 +64,19 @@ public class Record {
         this.returnDate = returnDate;
     }
 
-    public Integer getBookstatus() {
-        return bookstatus;
+    public Integer getBookStatus() {
+        return bookStatus;
     }
 
-    public void setBookstatus(Integer bookstatus) {
-        this.bookstatus = bookstatus;
+    public void setBookstatus(Integer bookStatus) {
+        this.bookStatus = bookStatus;
+    }
+
+    public Timestamp getActualReturnDate() {
+        return actualReturnDate;
+    }
+
+    public void setActualReturnDate(Timestamp actualReturnDate) {
+        this.actualReturnDate = actualReturnDate;
     }
 }

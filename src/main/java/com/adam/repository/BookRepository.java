@@ -4,7 +4,6 @@ import com.adam.model.Book;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
 import javax.transaction.Transactional;
 
 public interface BookRepository extends CrudRepository<Book, Integer> {
@@ -19,5 +18,24 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Transactional
     @Query(value = "DELETE FROM book WHERE book_id = ? ", nativeQuery = true)
     void deleteByBookId(String bookId);
+
+    //Check Book Amount
+    @Query(value = "SELECT book_amount FROM book Where book_id = ? " , nativeQuery = true)
+    Integer getBookAmount(String bookId);
+
+    //get Book Date
+    @Query(value = "SELECT book_date FROM book Where book_id = ? " , nativeQuery = true)
+    Integer getBookDate(String bookId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE book SET book_amount = ? WHERE book_id = ? ", nativeQuery = true)
+    void updateBookAmount(Integer bookAmount, String bookId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE book SET book_amount = ? WHERE book_id = ? ", nativeQuery = true)
+    void updateBookS(Integer bookAmount, String bookId);
+
 
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(path="/libray")
-public class Bookcontroller {
+public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
@@ -17,10 +17,10 @@ public class Bookcontroller {
     @Autowired
     private BookRepositoryImpl bookRepositoryImpl;
 
-    //Add
-    @PostMapping(path = "/addbook") // Map ONLY POST Requests
+    //AddBook
+    @PostMapping(path = "/addBook")
     public @ResponseBody
-    String addNew(
+    String addBook(
             @RequestParam String bookName,
             @RequestParam Integer bookDate ) {
 
@@ -33,7 +33,8 @@ public class Bookcontroller {
         return "Book Saved";
     }
 
-    @DeleteMapping(path = "/deleteByBookId") // Map ONLY Delete All Requests
+    //deleteByBookId
+    @DeleteMapping(path = "/deleteByBookId")
     public @ResponseBody String deleteByBookId(@RequestParam String bookId) {
         bookRepository.deleteByBookId(bookId);
         return "Book Delete OK";

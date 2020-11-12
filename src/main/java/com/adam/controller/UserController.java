@@ -17,8 +17,8 @@ public class UserController {
     @Autowired
     private UserRepositoryImpl userRepositoryImpl;
 
-    //Add
-    @PostMapping(path = "/adduser") // Map ONLY POST Requests
+    //Adduser
+    @PostMapping(path = "/adduser") //
     public @ResponseBody
     String addNew(
             @RequestParam String userName) {
@@ -30,7 +30,8 @@ public class UserController {
         return "User Saved";
     }
 
-    @DeleteMapping(path = "/deleteByUserId") // Map ONLY Delete All Requests
+    //deleteByUserId
+    @DeleteMapping(path = "/deleteByUserId")
     public @ResponseBody String deleteByUserId(@RequestParam String userId) {
         userRepository.deleteByUserId(userId);
         return "User Delete OK";
