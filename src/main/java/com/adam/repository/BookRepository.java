@@ -27,6 +27,9 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Query(value = "SELECT book_date FROM book Where book_id = ? " , nativeQuery = true)
     Integer getBookDate(String bookId);
 
+    @Query(value = "SELECT book_name FROM book Where book_id = ? " , nativeQuery = true)
+    String getBookName(String bookId);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE book SET book_amount = ? WHERE book_id = ? ", nativeQuery = true)
