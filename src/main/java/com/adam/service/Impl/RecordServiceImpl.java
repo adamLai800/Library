@@ -37,21 +37,21 @@ public class RecordServiceImpl{
     }
 
     public ArrayList<UserRecordHistory> getBookRecordHistory(String bookId){
-        ArrayList<UserRecordHistory> userRecordHistorys = new ArrayList<UserRecordHistory>();
+        ArrayList<UserRecordHistory> bookRecordHistorys = new ArrayList<UserRecordHistory>();
         ArrayList<Record> getRecordHistory  = recordService.getBookRecord(bookId);
         for(Record recordHistory  : getRecordHistory) {
-            UserRecordHistory userRecordHistory = new UserRecordHistory();
+            UserRecordHistory bookRecordHistory = new UserRecordHistory();
             String bookName = bookRepository.getBookName(recordHistory.getBookId());
-            userRecordHistory.setBookName(bookName);
-            userRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
-            userRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
+            bookRecordHistory.setBookName(bookName);
+            bookRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
+            bookRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
             if (recordHistory.getBookStatus() == 1){
-                userRecordHistory.setBookStatus("尚未歸還");
+                bookRecordHistory.setBookStatus("尚未歸還");
             }else if (recordHistory.getBookStatus() == 2) {
-                userRecordHistory.setBookStatus("已歸還");
+                bookRecordHistory.setBookStatus("已歸還");
             }
-            userRecordHistorys.add(userRecordHistory);
+            bookRecordHistorys.add(bookRecordHistory);
         }
-        return userRecordHistorys;
+        return bookRecordHistorys;
     }
 }
