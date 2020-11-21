@@ -8,9 +8,6 @@ import javax.transaction.Transactional;
 
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
-    @Query(value = "SELECT COUNT(*) FROM book", nativeQuery = true)
-    Integer getMaxBookCount();
-
     @Query(value = "SELECT MAX(CAST(SUBSTRING(book_id, 2, length(book_id)-1) AS UNSIGNED)) FROM book", nativeQuery = true)
     Integer getMaxBookId();
 
@@ -18,6 +15,9 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Transactional
     @Query(value = "DELETE FROM book WHERE book_id = ? ", nativeQuery = true)
     void deleteByBookId(String bookId);
+
+    @Query(value = "SELECT COUNT(*) FROM book", nativeQuery = true)
+    Integer getMaxBookCount();
 
     //Check Book Amount
     @Query(value = "SELECT book_amount FROM book Where book_id = ? " , nativeQuery = true)
@@ -39,6 +39,5 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Transactional
     @Query(value = "UPDATE book SET book_amount = ? WHERE book_id = ? ", nativeQuery = true)
     void updateBookS(Integer bookAmount, String bookId);
-
 
 }

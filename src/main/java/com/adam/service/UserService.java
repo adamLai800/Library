@@ -1,14 +1,18 @@
 package com.adam.service;
 
+
+import com.adam.api.request.DeleteByUserIdRequest;
 import com.adam.model.User;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
+public interface UserService {
 
-public interface UserService extends CrudRepository<User, Integer> {
+    String getNewUserIdInsertTable();
 
-    @Query(value = "SELECT user_name FROM user WHERE user_id =? ", nativeQuery = true)
-    String getUserName(String userId);
+    boolean addUser(User user);
+
+    boolean deleteByUserId(DeleteByUserIdRequest deleteByUserIdRequest);
+
+//    String getUserName(String userId);
 
 }
 

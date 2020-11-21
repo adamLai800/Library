@@ -1,43 +1,44 @@
 package com.adam.controller;
 
+import com.adam.api.request.AddBookRequest;
 import com.adam.model.Book;
-import com.adam.repository.BookRepository;
-import com.adam.repository.Impl.BookRepositoryImpl;
+import com.adam.service.BookService;
+import com.adam.util.LibraryConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path="/libray")
+@RequestMapping(path="/api/2.0/book")
 public class BookController {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
 
     @Autowired
-    private BookRepositoryImpl bookRepositoryImpl;
+    private BookService bookService;
 
     //AddBook
     @PostMapping(path = "/addBook")
     public @ResponseBody
     String addBook(
-            @RequestParam String bookName,
-            @RequestParam Integer bookDate ) {
+            @RequestBody AddBookRequest addBookRequest ) {
 
         Book book = new Book();
-        book.setBookId(bookRepositoryImpl.getNewBookIdInsertTable());
-        book.setBookName(bookName);
-        book.setBookDate(bookDate);
-        book.setBookAmount(1);
-        bookRepository.save(book);
+        book.setBookId(bookService.getNewBookIdInsertTable());
+        book.setBookName(addBookRequest.getBookName());
+        book.setBookDate(addBookRequest.getBookDate());
+        book.setBookAmount(LibraryConstant.BOOK_AMOUNT_ONLY_ONE);
+        bookService.addBook(book);
         return "Book Saved";
     }
 
-    //deleteByBookId
-    @DeleteMapping(path = "/deleteByBookId")
-    public @ResponseBody String deleteByBookId(@RequestParam String bookId) {
-        bookRepository.deleteByBookId(bookId);
-        return "Book Delete OK";
-    }
+//    //deleteByBookId
+//    @DeleteMapping(path = "/deleteByBookId")
+//    public @ResponseBody String deleteByBookId(@RequestParam String bookId) {
+//        bookRepository.deleteByBookId(bookId);
+//        return "Book Delete OK";
+//    }
 
 }

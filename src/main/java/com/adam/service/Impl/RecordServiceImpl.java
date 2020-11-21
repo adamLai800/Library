@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class RecordServiceImpl{
+public class RecordServiceImpl {
 
     @Autowired
     private RecordService recordService;
@@ -26,11 +26,12 @@ public class RecordServiceImpl{
             userRecordHistory.setBookName(bookName);
             userRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
             userRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
-            if (recordHistory.getBookStatus() == 1){
-                userRecordHistory.setBookStatus("尚未歸還");
-            }else if (recordHistory.getBookStatus() == 2) {
-                userRecordHistory.setBookStatus("已歸還");
-            }
+            userRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
+//            if (recordHistory.getBookStatus() == 1){
+//                userRecordHistory.setBookStatus("尚未歸還");
+//            }else if (recordHistory.getBookStatus() == 2) {
+//                userRecordHistory.setBookStatus("已歸還");
+//            }
             userRecordHistorys.add(userRecordHistory);
         }
         return userRecordHistorys;
@@ -45,13 +46,27 @@ public class RecordServiceImpl{
             bookRecordHistory.setBookName(bookName);
             bookRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
             bookRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
-            if (recordHistory.getBookStatus() == 1){
-                bookRecordHistory.setBookStatus("尚未歸還");
-            }else if (recordHistory.getBookStatus() == 2) {
-                bookRecordHistory.setBookStatus("已歸還");
-            }
+            bookRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
+//            if (recordHistory.getBookStatus() == 1){
+//                bookRecordHistory.setBookStatus("尚未歸還");
+//            }else if (recordHistory.getBookStatus() == 2) {
+//                bookRecordHistory.setBookStatus("已歸還");
+//            }
             bookRecordHistorys.add(bookRecordHistory);
         }
         return bookRecordHistorys;
+    }
+
+    private String returnStatusMappingValue(int status) {
+        String statusValue = "";
+        if (status == 1) {
+            statusValue = "尚未歸還";
+        } else if (status == 2) {
+            statusValue = "已歸還";
+        } else {
+            //TODO exception
+//            new Exception("xxxxx");
+        }
+        return statusValue;
     }
 }

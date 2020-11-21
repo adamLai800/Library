@@ -1,40 +1,75 @@
 package com.adam.controller;
 
+import com.adam.api.request.AddUserRequest;
+import com.adam.api.request.DeleteByUserIdRequest;
+import com.adam.api.response.AddUserResponse;
+import com.adam.api.response.DeleteByUserIdResponse;
 import com.adam.model.User;
-import com.adam.repository.Impl.UserRepositoryImpl;
-import com.adam.repository.UserRepository;
+import com.adam.service.UserService;
+import com.adam.util.LibraryConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path="/libray")
+@RequestMapping(path="/api/2.0/user")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private UserRepositoryImpl userRepositoryImpl;
+    private UserService userService;
 
-    //Adduser
-    @PostMapping(path = "/adduser") //
+    //addUser
+    @PostMapping(path = "/addUser") //
     public @ResponseBody
-    String addNew(
-            @RequestParam String userName) {
-
+    AddUserResponse addUser(@RequestBody AddUserRequest addUserRequest) {
+        boolean isSucceeded = false;
         User user = new User();
-        user.setUserId(userRepositoryImpl.getNewUserIdInsertTable());
-        user.setUserName(userName);
-        userRepository.save(user);
-        return "User Saved";
+        user.setUserId(userService.getNewUserIdInsertTable());
+        user.setUserName(addUserRequest.getUserName());
+        isSucceeded = userService.addUser(user);
+        AddUserResponse addUserResponse = new AddUserResponse();
+        try {
+            if(isSucceeded) {
+                addUserResponse.setUser(user);
+                addUserResponse.setCode(LibraryConstant.OK);
+                addUserResponse.setMsg(LibraryConstant.ADD_USER_MSG);
+            } else {
+                addUserResponse.setCode(LibraryConstant.NO);
+                addUserResponse.setErrorMsg(LibraryConstant.ADD_USER_ERROR);
+            }
+        } catch (Exception e) {
+            addUserResponse.setCode(LibraryConstant.OTHER);
+            addUserResponse.setErrorMsg(LibraryConstant.OTHERERROR);
+        }
+
+        return addUserResponse;
     }
 
     //deleteByUserId
     @DeleteMapping(path = "/deleteByUserId")
-    public @ResponseBody String deleteByUserId(@RequestParam String userId) {
-        userRepository.deleteByUserId(userId);
-        return "User Delete OK";
+    public @ResponseBody
+    DeleteByUserIdResponse
+    deleteByUserId(@RequestBody DeleteByUserIdRequest deleteByUserIdRequest) {
+        boolean isSucceeded = false;
+        isSucceeded = userService.deleteByUserId(deleteByUserIdRequest);
+        DeleteByUserIdResponse deleteByUserIdResponse = new DeleteByUserIdResponse();
+        try{
+            if(isSucceeded) {
+                deleteByUserIdResponse.setCode(LibraryConstant.OK);
+                deleteByUserIdResponse.setMsg(LibraryConstant.DELETE_USER_MSG);
+            } else {
+                deleteByUserIdResponse.setCode(LibraryConstant.NO);
+                deleteByUserIdResponse.setErrorMsg(LibraryConstant.DELETE_USER_ERROR);
+            }
+        }catch (Exception e){
+            deleteByUserIdResponse.setCode(LibraryConstant.OTHER);
+            deleteByUserIdResponse.setErrorMsg(LibraryConstant.OTHERERROR);
+        }
+        return deleteByUserIdResponse;
     }
 
 }
