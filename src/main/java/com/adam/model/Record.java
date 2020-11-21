@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 public class Record {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -79,4 +80,5 @@ public class Record {
     public void setActualReturnDate(Timestamp actualReturnDate) {
         this.actualReturnDate = actualReturnDate;
     }
+
 }

@@ -9,11 +9,16 @@ public class LibraryConstant {
 
     //Message
     public static final String ADD_USER_MSG = " User insert successfully!! ";
-    public static final String DELETE_USER_MSG = "User Delete successfully!!";
+    public static final String DELETE_USER_MSG = " User delete successfully!!";
+    public static final String ADD_BOOK_MSG = " Book insert successfully!! ";
+    public static final String DELETE_BOOK_MSG = " Book delete successfully!!";
+
 
     //Error Message
     public static final String ADD_USER_ERROR = " userService.addUser failure !! ";
     public static final String DELETE_USER_ERROR = " userService.deleteByUserId failure !! ";
+    public static final String ADD_BOOK_ERROR = " bookService.addUser failure !! ";
+    public static final String DELETE_BOOK_ERROR = " bookService.deleteByUserId failure !! ";
     public static final String OTHERERROR = " Other error !! ";
 
     //Book

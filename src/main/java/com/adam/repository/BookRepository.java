@@ -19,11 +19,9 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Query(value = "SELECT COUNT(*) FROM book", nativeQuery = true)
     Integer getMaxBookCount();
 
-    //Check Book Amount
     @Query(value = "SELECT book_amount FROM book Where book_id = ? " , nativeQuery = true)
     Integer getBookAmount(String bookId);
 
-    //get Book Date
     @Query(value = "SELECT book_date FROM book Where book_id = ? " , nativeQuery = true)
     Integer getBookDate(String bookId);
 

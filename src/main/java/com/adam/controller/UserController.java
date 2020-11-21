@@ -33,7 +33,7 @@ public class UserController {
         isSucceeded = userService.addUser(user);
         AddUserResponse addUserResponse = new AddUserResponse();
         try {
-            if(isSucceeded) {
+            if (isSucceeded) {
                 addUserResponse.setUser(user);
                 addUserResponse.setCode(LibraryConstant.OK);
                 addUserResponse.setMsg(LibraryConstant.ADD_USER_MSG);
@@ -45,7 +45,6 @@ public class UserController {
             addUserResponse.setCode(LibraryConstant.OTHER);
             addUserResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
-
         return addUserResponse;
     }
 
@@ -57,15 +56,15 @@ public class UserController {
         boolean isSucceeded = false;
         isSucceeded = userService.deleteByUserId(deleteByUserIdRequest);
         DeleteByUserIdResponse deleteByUserIdResponse = new DeleteByUserIdResponse();
-        try{
-            if(isSucceeded) {
+        try {
+            if (isSucceeded) {
                 deleteByUserIdResponse.setCode(LibraryConstant.OK);
                 deleteByUserIdResponse.setMsg(LibraryConstant.DELETE_USER_MSG);
             } else {
                 deleteByUserIdResponse.setCode(LibraryConstant.NO);
                 deleteByUserIdResponse.setErrorMsg(LibraryConstant.DELETE_USER_ERROR);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             deleteByUserIdResponse.setCode(LibraryConstant.OTHER);
             deleteByUserIdResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }

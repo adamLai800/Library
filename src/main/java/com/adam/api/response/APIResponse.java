@@ -36,4 +36,5 @@ public class APIResponse {
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
+
 }

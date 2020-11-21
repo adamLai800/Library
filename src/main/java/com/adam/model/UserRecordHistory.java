@@ -43,4 +43,5 @@ public class UserRecordHistory {
     public void setBookStatus(String bookStatus) {
         this.bookStatus = bookStatus;
     }
+
 }

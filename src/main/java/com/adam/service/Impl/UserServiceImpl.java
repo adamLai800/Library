@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         int getMaxUserId = 0 ;
         try {
             getMaxUserId = userRepository.getMaxUserId();
-        }catch (Exception e){
+        } catch (Exception e) {
             LOG.info(" getNewUserIdInsertTable failed : ", e);
         }
         getMaxUserId ++;
@@ -33,10 +33,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean addUser(User user) {
         boolean isSucceeded = false;
-        try{
+        try {
             userRepository.save(user);
             isSucceeded = true;
-        }catch (Exception e){
+        } catch (Exception e) {
             LOG.error(" save user failed : ", e);
         }
         return isSucceeded;
@@ -45,10 +45,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteByUserId(DeleteByUserIdRequest deleteByUserIdRequest) {
         boolean isSucceeded = false;
-        try{
+        try {
             userRepository.deleteByUserId(deleteByUserIdRequest.getUserId());
             isSucceeded = true;
-        }catch (Exception e){
+        } catch (Exception e) {
             LOG.info(" deleteByUserId failed : ", e);
         }
         return isSucceeded;

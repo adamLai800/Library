@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Book {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -58,4 +59,5 @@ public class Book {
     public void setBookAmount(Integer bookAmount) {
         this.bookAmount = bookAmount;
     }
+
 }
