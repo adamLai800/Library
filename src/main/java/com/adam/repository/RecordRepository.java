@@ -12,10 +12,10 @@ public interface RecordRepository extends CrudRepository<Record, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE record SET actual_return_date = ? ,book_status = 2 " +
+    @Query(value = "UPDATE record SET actual_return_date = ? ,book_status = ? " +
             "WHERE user_id = ? AND book_id = ? "
             , nativeQuery = true)
-    void updateActualReturnDate(Timestamp actualReturnDate, String userId, String bookId);
+    void updateActualReturnDate(Timestamp actualReturnDate, int bookStatus, String userId, String bookId);
 
 //    @Query(value = "SELECT return_date FROM record " +
 //            "WHERE book_id = ? AND book_status = 1 " , nativeQuery = true)

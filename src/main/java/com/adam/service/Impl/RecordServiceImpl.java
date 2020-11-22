@@ -6,6 +6,7 @@ import com.adam.model.UserRecordHistory;
 import com.adam.repository.RecordRepository;
 import com.adam.service.BookService;
 import com.adam.service.RecordService;
+import com.adam.util.LibraryConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class RecordServiceImpl implements RecordService{
         boolean isSucceeded = false;
         try {
             recordRepository.updateActualReturnDate(actualReturnDate,
+                    LibraryConstant.RECORD_STATUS_UPDATE,
                     updateRecordRequest.getUserId(),
                     updateRecordRequest.getBookId());
             isSucceeded = true;
