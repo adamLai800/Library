@@ -1,5 +1,6 @@
 package com.adam.service.Impl;
 
+import com.adam.api.request.AddRecordRequest;
 import com.adam.api.request.DeleteByBookIdRequest;
 import com.adam.model.Book;
 import com.adam.repository.BookRepository;
@@ -53,5 +54,17 @@ public class BookServiceImpl implements BookService {
         }
         return isSucceeded;
     }
+
+    @Override
+    public Book getBookAll(String bookId) {
+        Book book = bookRepository.getBookAll(bookId);
+        return book;
+    }
+
+    @Override
+    public void updateBookAmount(int bookAmount, String bookId) {
+        bookRepository.updateBookAmount(bookAmount, bookId);
+    }
+
 }
 

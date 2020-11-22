@@ -12,6 +12,8 @@ public class LibraryConstant {
     public static final String DELETE_USER_MSG = " User delete successfully!!";
     public static final String ADD_BOOK_MSG = " Book insert successfully!! ";
     public static final String DELETE_BOOK_MSG = " Book delete successfully!!";
+    public static final String ADD_RECORD_MSG = " 已完成借書手續!! ";
+    public static final String UPDATE_RECORD_MSG = " 已完成歸還手續!! ";
 
 
     //Error Message
@@ -19,9 +21,18 @@ public class LibraryConstant {
     public static final String DELETE_USER_ERROR = " userService.deleteByUserId failure !! ";
     public static final String ADD_BOOK_ERROR = " bookService.addUser failure !! ";
     public static final String DELETE_BOOK_ERROR = " bookService.deleteByUserId failure !! ";
+    public static final String ADD_RECORD_ERROR = " 借書手續錯誤 !! ";
+    public static final String UPDATE_RECORD_ERROR = " 歸還手續錯誤!! ";
+
     public static final String OTHERERROR = " Other error !! ";
 
     //Book
     public static final int BOOK_AMOUNT_ONLY_ONE = 1;
+    public static final int BOOK_AMOUNT_ADD = 1;
+    public static final int BOOK_AMOUNT_LESS = 0;
+
+    //Record
+    public static final int RECORD_STATUS_ADD = 1;
+    public static final int RECORD_STATUS_UPDATE = 2;
 
 }

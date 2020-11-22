@@ -1,72 +1,99 @@
 package com.adam.service.Impl;
 
+import com.adam.api.request.UpdateRecordRequest;
 import com.adam.model.Record;
 import com.adam.model.UserRecordHistory;
-import com.adam.repository.BookRepository;
+import com.adam.repository.RecordRepository;
+import com.adam.service.BookService;
 import com.adam.service.RecordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Service
-public class RecordServiceImpl {
+public class RecordServiceImpl implements RecordService{
+
+    private static final Logger LOG = LoggerFactory.getLogger(RecordServiceImpl.class);
+
+    @Autowired
+    private RecordRepository recordRepository;
 
     @Autowired
     private RecordService recordService;
 
     @Autowired
-    private BookRepository bookRepository;
+    private BookService bookService;
 
-    public ArrayList<UserRecordHistory> getUserRecordHistory(String userId){
-        ArrayList<UserRecordHistory> userRecordHistorys = new ArrayList<UserRecordHistory>();
-        ArrayList<Record> getRecordHistory  = recordService.getUserRecord(userId);
-        for(Record recordHistory  : getRecordHistory) {
-            UserRecordHistory userRecordHistory = new UserRecordHistory();
-            String bookName = bookRepository.getBookName(recordHistory.getBookId());
-            userRecordHistory.setBookName(bookName);
-            userRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
-            userRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
-            userRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
-//            if (recordHistory.getBookStatus() == 1){
-//                userRecordHistory.setBookStatus("尚未歸還");
-//            }else if (recordHistory.getBookStatus() == 2) {
-//                userRecordHistory.setBookStatus("已歸還");
-//            }
-            userRecordHistorys.add(userRecordHistory);
+    @Override
+    public boolean addRecord(Record record) {
+        boolean isSucceeded = false;
+        try {
+            recordRepository.save(record);
+            isSucceeded = true;
+        } catch (Exception e) {
+            LOG.error(" save record failed : ", e);
         }
-        return userRecordHistorys;
+        return isSucceeded;
     }
 
-    public ArrayList<UserRecordHistory> getBookRecordHistory(String bookId){
-        ArrayList<UserRecordHistory> bookRecordHistorys = new ArrayList<UserRecordHistory>();
-        ArrayList<Record> getRecordHistory  = recordService.getBookRecord(bookId);
-        for(Record recordHistory  : getRecordHistory) {
-            UserRecordHistory bookRecordHistory = new UserRecordHistory();
-            String bookName = bookRepository.getBookName(recordHistory.getBookId());
-            bookRecordHistory.setBookName(bookName);
-            bookRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
-            bookRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
-            bookRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
-//            if (recordHistory.getBookStatus() == 1){
-//                bookRecordHistory.setBookStatus("尚未歸還");
-//            }else if (recordHistory.getBookStatus() == 2) {
-//                bookRecordHistory.setBookStatus("已歸還");
-//            }
-            bookRecordHistorys.add(bookRecordHistory);
+    @Override
+    public boolean updateActualReturnDate(Timestamp actualReturnDate, UpdateRecordRequest updateRecordRequest) {
+        boolean isSucceeded = false;
+        try {
+            recordRepository.updateActualReturnDate(actualReturnDate,
+                    updateRecordRequest.getUserId(),
+                    updateRecordRequest.getBookId());
+            isSucceeded = true;
+        } catch (Exception e) {
+            LOG.error(" update record failed : ", e);
         }
-        return bookRecordHistorys;
+        return isSucceeded;
     }
 
-    private String returnStatusMappingValue(int status) {
-        String statusValue = "";
-        if (status == 1) {
-            statusValue = "尚未歸還";
-        } else if (status == 2) {
-            statusValue = "已歸還";
-        } else {
-            //TODO exception
-//            new Exception("xxxxx");
-        }
-        return statusValue;
-    }
+//    public ArrayList<UserRecordHistory> getUserRecordHistory(String userId){
+//        ArrayList<UserRecordHistory> userRecordHistorys = new ArrayList<UserRecordHistory>();
+//        ArrayList<Record> getRecordHistory  = recordService.getUserRecord(userId);
+//        for(Record recordHistory  : getRecordHistory) {
+//            UserRecordHistory userRecordHistory = new UserRecordHistory();
+//            String bookName = bookRepository.getBookName(recordHistory.getBookId());
+//            userRecordHistory.setBookName(bookName);
+//            userRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
+//            userRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
+//            userRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
+//            userRecordHistorys.add(userRecordHistory);
+//        }
+//        return userRecordHistorys;
+//    }
+//
+//    public ArrayList<UserRecordHistory> getBookRecordHistory(String bookId){
+//        ArrayList<UserRecordHistory> bookRecordHistorys = new ArrayList<UserRecordHistory>();
+//        ArrayList<Record> getRecordHistory  = recordService.getBookRecord(bookId);
+//        for(Record recordHistory  : getRecordHistory) {
+//            UserRecordHistory bookRecordHistory = new UserRecordHistory();
+//            String bookName = bookRepository.getBookName(recordHistory.getBookId());
+//            bookRecordHistory.setBookName(bookName);
+//            bookRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
+//            bookRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
+//            bookRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
+//            bookRecordHistorys.add(bookRecordHistory);
+//        }
+//        return bookRecordHistorys;
+//    }
+//
+//    private String returnStatusMappingValue(int status) {
+//        String statusValue = "";
+//        if (status == 1) {
+//            statusValue = "尚未歸還";
+//        } else if (status == 2) {
+//            statusValue = "已歸還";
+//        } else {
+//            //TODO exception
+////            new Exception("xxxxx");
+//        }
+//        return statusValue;
+//    }
 }

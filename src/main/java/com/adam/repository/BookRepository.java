@@ -16,26 +16,37 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Query(value = "DELETE FROM book WHERE book_id = ? ", nativeQuery = true)
     void deleteByBookId(String bookId);
 
-    @Query(value = "SELECT COUNT(*) FROM book", nativeQuery = true)
-    Integer getMaxBookCount();
-
-    @Query(value = "SELECT book_amount FROM book Where book_id = ? " , nativeQuery = true)
-    Integer getBookAmount(String bookId);
-
-    @Query(value = "SELECT book_date FROM book Where book_id = ? " , nativeQuery = true)
-    Integer getBookDate(String bookId);
-
-    @Query(value = "SELECT book_name FROM book Where book_id = ? " , nativeQuery = true)
-    String getBookName(String bookId);
+    @Query(value = "SELECT * FROM book Where book_id = ? " , nativeQuery = true)
+    Book getBookAll(String bookId);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE book SET book_amount = ? WHERE book_id = ? ", nativeQuery = true)
-    void updateBookAmount(Integer bookAmount, String bookId);
+    void updateBookAmount(int bookAmount, String bookId);
 
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE book SET book_amount = ? WHERE book_id = ? ", nativeQuery = true)
-    void updateBookS(Integer bookAmount, String bookId);
 
+//    //Borrow book
+//    public String borrowBook(String bookId) {
+//        String borrowMessage = null;
+//        int bookAmount = bookRepository.getBookAmount(bookId);
+//        if(bookAmount == 0){
+//            borrowMessage = "此書已借出";
+//        }else{
+//            borrowMessage = "ok";
+//        }
+//        return borrowMessage;
+//    }
+//
+//    //Return book
+//    public String returnBook(String bookId) {
+//        String returnMessage = null;
+//        int bookAmount = bookRepository.getBookAmount(bookId);
+//
+//        if(bookAmount == 0){
+//            returnMessage = "ok";
+//        }else{
+//            returnMessage = "此書已歸還";
+//        }
+//        return returnMessage;
+//    }
 }
