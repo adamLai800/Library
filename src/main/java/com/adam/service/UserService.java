@@ -12,7 +12,7 @@ public interface UserService {
 
     boolean deleteByUserId(DeleteByUserIdRequest deleteByUserIdRequest);
 
-//    String getUserName(String userId);
+    User getUserAll(String userId);
 
 }
 

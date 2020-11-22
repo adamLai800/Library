@@ -17,9 +17,10 @@ public interface RecordRepository extends CrudRepository<Record, Integer> {
             , nativeQuery = true)
     void updateActualReturnDate(Timestamp actualReturnDate, int bookStatus, String userId, String bookId);
 
-//    @Query(value = "SELECT return_date FROM record " +
-//            "WHERE book_id = ? AND book_status = 1 " , nativeQuery = true)
-//    Timestamp getReturnDate(String bookId);
+    @Query(value = "SELECT * FROM record " +
+            "WHERE book_id = ? AND book_status = ? " , nativeQuery = true)
+    Record getRecordByBookId(String bookId, int bookStatus);
+
 //
 //    @Query(value = "SELECT * FROM record " +
 //            "WHERE user_id = ? " , nativeQuery = true)
@@ -29,8 +30,5 @@ public interface RecordRepository extends CrudRepository<Record, Integer> {
 //            "WHERE book_id = ? " , nativeQuery = true)
 //    ArrayList<Record> getBookRecord(String bookId);
 //
-//    @Query(value = "SELECT user_id FROM record " +
-//            "WHERE book_id = ? AND book_status = 1 " , nativeQuery = true)
-//    String getUserId(String bookId);
 
 }

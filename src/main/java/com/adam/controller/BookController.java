@@ -2,10 +2,16 @@ package com.adam.controller;
 
 import com.adam.api.request.AddBookRequest;
 import com.adam.api.request.DeleteByBookIdRequest;
+import com.adam.api.request.GetBookWhereRequest;
 import com.adam.api.response.AddBookResponse;
 import com.adam.api.response.DeleteByBookIdResponse;
+import com.adam.api.response.GetBookWhereResponse;
 import com.adam.model.Book;
+import com.adam.model.Record;
+import com.adam.model.User;
 import com.adam.service.BookService;
+import com.adam.service.RecordService;
+import com.adam.service.UserService;
 import com.adam.util.LibraryConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +27,12 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private RecordService recordService;
+
+    @Autowired
+    private UserService userService;
 
     //addBook
     @PostMapping(path = "/addBook") //
@@ -72,6 +84,27 @@ public class BookController {
             deleteByBookIdResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
         return deleteByBookIdResponse;
+    }
+
+    @GetMapping(path = "/getBookWhere")
+    public @ResponseBody
+    GetBookWhereResponse getBookWhere
+            (@RequestBody GetBookWhereRequest getBookWhereRequest) {
+        GetBookWhereResponse getBookWhereResponse = new GetBookWhereResponse();
+        Book book = bookService.getBookAll(getBookWhereRequest.getBookId());
+        if (book.getBookAmount() == 0) {
+            Record record = recordService.getRecordByBookId(getBookWhereRequest.getBookId());
+            User user = userService.getUserAll(record.getUserId());
+            getBookWhereResponse.setUserName(user.getUserName());
+            getBookWhereResponse.setBookName(book.getBookName());
+            getBookWhereResponse.setReturnDate(record.getReturnDate());
+            getBookWhereResponse.setCode(LibraryConstant.OK);
+            getBookWhereResponse.setMsg(LibraryConstant.GET_BOOK_IN_USER_MSG);
+        }else{
+            getBookWhereResponse.setCode(LibraryConstant.OK);
+            getBookWhereResponse.setMsg(LibraryConstant.GET_BOOK_IN_LIBRARY_MSG);
+        }
+        return getBookWhereResponse;
     }
 
 }

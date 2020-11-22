@@ -89,24 +89,7 @@ public class RecordController {
         return updateRecordResponse;
 
     }
-//
-//    @GetMapping(path = "/getBookWhere")
-//    public @ResponseBody
-//    HashMap<String,Timestamp> getBookWhered(
-//            @RequestParam String bookId) {
-//        HashMap<String,Timestamp> getBookWheredMessage = new HashMap<String,Timestamp>();
-//        int bookAmount = bookRepository.getBookAmount(bookId);
-//        Calendar currentlyDate = Calendar.getInstance();
-//        if (bookAmount == 0) {
-//            getBookWheredMessage.put(userService.getUserName(recordService.getUserId(bookId))
-//                    , recordService.getReturnDate(bookId));
-//        }else{
-//            getBookWheredMessage.put("此書還在圖書館"
-//                    , new Timestamp(currentlyDate.getTimeInMillis()));
-//
-//        }
-//        return getBookWheredMessage;
-//    }
+
 //
 //    @GetMapping(path = "/getUserHistory")
 //    public @ResponseBody

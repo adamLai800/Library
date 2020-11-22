@@ -11,4 +11,6 @@ public interface RecordService {
 
     boolean updateActualReturnDate(Timestamp actualReturnDate, UpdateRecordRequest updateRecordRequest);
 
+    Record getRecordByBookId(String bookId);
+
 }

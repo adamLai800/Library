@@ -14,6 +14,8 @@ public class LibraryConstant {
     public static final String DELETE_BOOK_MSG = " Book delete successfully!!";
     public static final String ADD_RECORD_MSG = " 已完成借書手續!! ";
     public static final String UPDATE_RECORD_MSG = " 已完成歸還手續!! ";
+    public static final String GET_BOOK_IN_USER_MSG = " 此書已被借!! ";
+    public static final String GET_BOOK_IN_LIBRARY_MSG = " 此書在圖書館內!! ";
 
 
     //Error Message

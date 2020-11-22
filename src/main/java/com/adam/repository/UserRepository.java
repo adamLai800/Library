@@ -20,13 +20,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query(value = "DELETE FROM user WHERE user_id = ? ", nativeQuery = true)
     void deleteByUserId(String userId);
 
-//    @Query(value = "SELECT COUNT(*) FROM user", nativeQuery = true)
-//    Integer getMaxUserCount();
-
-//    @Query(value = "SELECT user_name FROM user WHERE user_id =? ", nativeQuery = true)
-//    String getUserName(String userId);
-
-//    String getUserName(String userId);
+    @Query(value = "SELECT * FROM user WHERE user_id =? ", nativeQuery = true)
+    User getUserAll(String userId);
 
 }
 

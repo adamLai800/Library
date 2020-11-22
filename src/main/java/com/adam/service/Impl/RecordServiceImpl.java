@@ -56,6 +56,13 @@ public class RecordServiceImpl implements RecordService{
         return isSucceeded;
     }
 
+    @Override
+    public Record getRecordByBookId(String bookId) {
+        Record record = recordRepository.getRecordByBookId(bookId, LibraryConstant.BOOK_AMOUNT_ADD);
+        return record;
+    }
+
+
 //    public ArrayList<UserRecordHistory> getUserRecordHistory(String userId){
 //        ArrayList<UserRecordHistory> userRecordHistorys = new ArrayList<UserRecordHistory>();
 //        ArrayList<Record> getRecordHistory  = recordService.getUserRecord(userId);
