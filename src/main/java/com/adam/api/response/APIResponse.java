@@ -2,8 +2,6 @@ package com.adam.api.response;
 
 public class APIResponse {
 
-
-
     // 狀態值
     private Integer code;
 

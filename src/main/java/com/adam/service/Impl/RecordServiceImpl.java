@@ -2,7 +2,6 @@ package com.adam.service.Impl;
 
 import com.adam.api.request.UpdateRecordRequest;
 import com.adam.model.Record;
-import com.adam.model.UserRecordHistory;
 import com.adam.repository.RecordRepository;
 import com.adam.service.BookService;
 import com.adam.service.RecordService;
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -57,42 +55,19 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
-    public Record getRecordByBookId(String bookId) {
-        Record record = recordRepository.getRecordByBookId(bookId, LibraryConstant.BOOK_AMOUNT_ADD);
-        return record;
+    public Record getRecordByBookIdByBookStatus(String bookId, int bookStatus) {
+        Record getRecordByBookIdByBookStatus
+                = recordRepository.getRecordByBookIdByBookStatus(bookId, bookStatus);
+        return getRecordByBookIdByBookStatus;
+    }
+
+    @Override
+    public ArrayList<Record> getRecordByBookId(String bookId) {
+        ArrayList<Record> getRecordByBookId = recordRepository.getRecordByBookId(bookId);
+        return getRecordByBookId;
     }
 
 
-//    public ArrayList<UserRecordHistory> getUserRecordHistory(String userId){
-//        ArrayList<UserRecordHistory> userRecordHistorys = new ArrayList<UserRecordHistory>();
-//        ArrayList<Record> getRecordHistory  = recordService.getUserRecord(userId);
-//        for(Record recordHistory  : getRecordHistory) {
-//            UserRecordHistory userRecordHistory = new UserRecordHistory();
-//            String bookName = bookRepository.getBookName(recordHistory.getBookId());
-//            userRecordHistory.setBookName(bookName);
-//            userRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
-//            userRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
-//            userRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
-//            userRecordHistorys.add(userRecordHistory);
-//        }
-//        return userRecordHistorys;
-//    }
-//
-//    public ArrayList<UserRecordHistory> getBookRecordHistory(String bookId){
-//        ArrayList<UserRecordHistory> bookRecordHistorys = new ArrayList<UserRecordHistory>();
-//        ArrayList<Record> getRecordHistory  = recordService.getBookRecord(bookId);
-//        for(Record recordHistory  : getRecordHistory) {
-//            UserRecordHistory bookRecordHistory = new UserRecordHistory();
-//            String bookName = bookRepository.getBookName(recordHistory.getBookId());
-//            bookRecordHistory.setBookName(bookName);
-//            bookRecordHistory.setBorrowDate(recordHistory.getBorrowDate());
-//            bookRecordHistory.setActualReturnDate(recordHistory.getActualReturnDate());
-//            bookRecordHistory.setBookStatus(returnStatusMappingValue(recordHistory.getBookStatus()));
-//            bookRecordHistorys.add(bookRecordHistory);
-//        }
-//        return bookRecordHistorys;
-//    }
-//
 //    private String returnStatusMappingValue(int status) {
 //        String statusValue = "";
 //        if (status == 1) {

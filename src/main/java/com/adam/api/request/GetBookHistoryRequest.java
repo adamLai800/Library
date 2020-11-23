@@ -1,6 +1,6 @@
 package com.adam.api.request;
 
-public class GetBookWhereRequest {
+public class GetBookHistoryRequest {
 
     private String bookId;
 
@@ -11,4 +11,5 @@ public class GetBookWhereRequest {
     public void setBookId(String bookId) {
         this.bookId = bookId;
     }
+
 }

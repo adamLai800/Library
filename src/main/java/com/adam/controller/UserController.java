@@ -71,4 +71,16 @@ public class UserController {
         return deleteByUserIdResponse;
     }
 
+
+    @GetMapping(path = "/getUserHistory")
+    public @ResponseBody
+    DeleteByUserIdResponse getUserHistoryResponse(@RequestBody DeleteByUserIdRequest deleteByUserIdRequest) {
+        HashMap<String, ArrayList<UserRecordHistory>> getUserHistory =
+                new HashMap<String, ArrayList<UserRecordHistory>>();
+
+        ArrayList<UserRecordHistory> userRecordHistory = recordServiceImpl.getUserRecordHistory(userId);
+        getUserHistory.put(userService.getUserName(userId), userRecordHistory);
+        return getUserHistory;
+    }
+
 }

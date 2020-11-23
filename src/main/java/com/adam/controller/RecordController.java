@@ -1,14 +1,11 @@
 package com.adam.controller;
 
-import com.adam.api.request.AddBookRequest;
 import com.adam.api.request.AddRecordRequest;
 import com.adam.api.request.UpdateRecordRequest;
-import com.adam.api.response.AddBookResponse;
 import com.adam.api.response.AddRecordResponse;
 import com.adam.api.response.UpdateRecordResponse;
 import com.adam.model.Book;
 import com.adam.model.Record;
-import com.adam.model.UserRecordHistory;
 import com.adam.service.BookService;
 import com.adam.service.RecordService;
 import com.adam.util.LibraryConstant;
@@ -16,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 @Controller
 @RequestMapping(path="/api/2.0/record")
@@ -89,28 +84,5 @@ public class RecordController {
         return updateRecordResponse;
 
     }
-
-//
-//    @GetMapping(path = "/getUserHistory")
-//    public @ResponseBody
-//    HashMap<String, ArrayList<UserRecordHistory>> getUserHistory(
-//            @RequestParam String userId) {
-//        HashMap<String, ArrayList<UserRecordHistory>> getUserHistory =
-//                new HashMap<String, ArrayList<UserRecordHistory>>();
-//
-//        ArrayList<UserRecordHistory> userRecordHistory = recordServiceImpl.getUserRecordHistory(userId);
-//        getUserHistory.put(userService.getUserName(userId), userRecordHistory);
-//        return getUserHistory;
-//    }
-//
-//    @GetMapping(path = "/getBookHistory")
-//    public @ResponseBody ArrayList<UserRecordHistory> getBookRecordHistory(
-//            @RequestParam String booId) {
-//        HashMap<String, ArrayList<UserRecordHistory>> getUserHistory =
-//                new HashMap<String, ArrayList<UserRecordHistory>>();
-//
-//        ArrayList<UserRecordHistory> userRecordHistory = recordServiceImpl.getBookRecordHistory(booId);
-//        return userRecordHistory;
-//    }
 
 }

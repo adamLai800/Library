@@ -2,10 +2,9 @@ package com.adam.controller;
 
 import com.adam.api.request.AddBookRequest;
 import com.adam.api.request.DeleteByBookIdRequest;
+import com.adam.api.request.GetBookHistoryRequest;
 import com.adam.api.request.GetBookWhereRequest;
-import com.adam.api.response.AddBookResponse;
-import com.adam.api.response.DeleteByBookIdResponse;
-import com.adam.api.response.GetBookWhereResponse;
+import com.adam.api.response.*;
 import com.adam.model.Book;
 import com.adam.model.Record;
 import com.adam.model.User;
@@ -18,6 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+
 
 @Controller
 @RequestMapping(path="/api/2.0/book")
@@ -93,7 +94,8 @@ public class BookController {
         GetBookWhereResponse getBookWhereResponse = new GetBookWhereResponse();
         Book book = bookService.getBookAll(getBookWhereRequest.getBookId());
         if (book.getBookAmount() == 0) {
-            Record record = recordService.getRecordByBookId(getBookWhereRequest.getBookId());
+            Record record = recordService.getRecordByBookIdByBookStatus
+                    (getBookWhereRequest.getBookId(), LibraryConstant.RECORD_STATUS_ADD);
             User user = userService.getUserAll(record.getUserId());
             getBookWhereResponse.setUserName(user.getUserName());
             getBookWhereResponse.setBookName(book.getBookName());
@@ -105,6 +107,25 @@ public class BookController {
             getBookWhereResponse.setMsg(LibraryConstant.GET_BOOK_IN_LIBRARY_MSG);
         }
         return getBookWhereResponse;
+    }
+
+    @GetMapping(path = "/getBookHistory")
+    public @ResponseBody
+    GetBookHistoryResponse getBookRecordHistory
+            (@RequestBody GetBookHistoryRequest getBookHistoryRequest) {
+        GetBookHistoryResponse getBookHistoryResponse = new GetBookHistoryResponse();
+        try {
+            Book book = bookService.getBookAll(getBookHistoryRequest.getBookId());
+            ArrayList<Record> getRecordByBookId = recordService.getRecordByBookId(getBookHistoryRequest.getBookId());
+            getBookHistoryResponse.setBookName(book.getBookName());
+            getBookHistoryResponse.setRecord(getRecordByBookId);
+            getBookHistoryResponse.setCode(LibraryConstant.OK);
+            getBookHistoryResponse.setMsg(LibraryConstant.GET_BOOK_HISTORY);
+        } catch (Exception e) {
+            getBookHistoryResponse.setCode(LibraryConstant.OTHER);
+            getBookHistoryResponse.setErrorMsg(LibraryConstant.OTHERERROR);
+        }
+        return getBookHistoryResponse;
     }
 
 }

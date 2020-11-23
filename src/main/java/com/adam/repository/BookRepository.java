@@ -24,29 +24,4 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Query(value = "UPDATE book SET book_amount = ? WHERE book_id = ? ", nativeQuery = true)
     void updateBookAmount(int bookAmount, String bookId);
 
-
-//    //Borrow book
-//    public String borrowBook(String bookId) {
-//        String borrowMessage = null;
-//        int bookAmount = bookRepository.getBookAmount(bookId);
-//        if(bookAmount == 0){
-//            borrowMessage = "此書已借出";
-//        }else{
-//            borrowMessage = "ok";
-//        }
-//        return borrowMessage;
-//    }
-//
-//    //Return book
-//    public String returnBook(String bookId) {
-//        String returnMessage = null;
-//        int bookAmount = bookRepository.getBookAmount(bookId);
-//
-//        if(bookAmount == 0){
-//            returnMessage = "ok";
-//        }else{
-//            returnMessage = "此書已歸還";
-//        }
-//        return returnMessage;
-//    }
 }
