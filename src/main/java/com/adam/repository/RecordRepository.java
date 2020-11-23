@@ -24,11 +24,7 @@ public interface RecordRepository extends CrudRepository<Record, Integer> {
     @Query(value = "SELECT * FROM record WHERE book_id = ? " , nativeQuery = true)
     ArrayList<Record> getRecordByBookId(String bookId);
 
-
-//
-//    @Query(value = "SELECT * FROM record " +
-//            "WHERE user_id = ? " , nativeQuery = true)
-//    ArrayList<Record> getUserRecord(String userId);
-
+    @Query(value = "SELECT * FROM record WHERE user_id = ? " , nativeQuery = true)
+    ArrayList<Record> getRecordByUserId(String userId);
 
 }

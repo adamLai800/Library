@@ -67,17 +67,10 @@ public class RecordServiceImpl implements RecordService{
         return getRecordByBookId;
     }
 
+    @Override
+    public ArrayList<Record> getRecordByUserId(String userId) {
+        ArrayList<Record> getRecordByUserId = recordRepository.getRecordByUserId(userId);
+        return getRecordByUserId;
+    }
 
-//    private String returnStatusMappingValue(int status) {
-//        String statusValue = "";
-//        if (status == 1) {
-//            statusValue = "尚未歸還";
-//        } else if (status == 2) {
-//            statusValue = "已歸還";
-//        } else {
-//            //TODO exception
-////            new Exception("xxxxx");
-//        }
-//        return statusValue;
-//    }
 }

@@ -1,6 +1,6 @@
 package com.adam.api.request;
 
-public class DeleteByUserIdRequest {
+public class GetUserHistoryRequest {
 
     private String userId;
 
@@ -11,5 +11,4 @@ public class DeleteByUserIdRequest {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
 }

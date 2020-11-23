@@ -1,6 +1,5 @@
 package com.adam.service.Impl;
 
-import com.adam.api.request.AddRecordRequest;
 import com.adam.api.request.DeleteByBookIdRequest;
 import com.adam.model.Book;
 import com.adam.repository.BookRepository;

@@ -2,9 +2,13 @@ package com.adam.controller;
 
 import com.adam.api.request.AddUserRequest;
 import com.adam.api.request.DeleteByUserIdRequest;
+import com.adam.api.request.GetUserHistoryRequest;
 import com.adam.api.response.AddUserResponse;
 import com.adam.api.response.DeleteByUserIdResponse;
+import com.adam.api.response.GetUserHistoryResponse;
+import com.adam.model.Record;
 import com.adam.model.User;
+import com.adam.service.RecordService;
 import com.adam.service.UserService;
 import com.adam.util.LibraryConstant;
 import org.slf4j.Logger;
@@ -12,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping(path="/api/2.0/user")
@@ -21,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RecordService recordService;
 
     //addUser
     @PostMapping(path = "/addUser") //
@@ -74,13 +82,20 @@ public class UserController {
 
     @GetMapping(path = "/getUserHistory")
     public @ResponseBody
-    DeleteByUserIdResponse getUserHistoryResponse(@RequestBody DeleteByUserIdRequest deleteByUserIdRequest) {
-        HashMap<String, ArrayList<UserRecordHistory>> getUserHistory =
-                new HashMap<String, ArrayList<UserRecordHistory>>();
-
-        ArrayList<UserRecordHistory> userRecordHistory = recordServiceImpl.getUserRecordHistory(userId);
-        getUserHistory.put(userService.getUserName(userId), userRecordHistory);
-        return getUserHistory;
+    GetUserHistoryResponse getUserHistory(@RequestBody GetUserHistoryRequest getUserHistoryRequest) {
+        GetUserHistoryResponse getUserHistoryResponse = new GetUserHistoryResponse();
+        try {
+            User user = userService.getUserAll(getUserHistoryRequest.getUserId());
+            ArrayList<Record> getRecordByBookId = recordService.getRecordByUserId(getUserHistoryRequest.getUserId());
+            getUserHistoryResponse.setUserName(user.getUserName());
+            getUserHistoryResponse.setRecord(getRecordByBookId);
+            getUserHistoryResponse.setCode(LibraryConstant.OK);
+            getUserHistoryResponse.setMsg(LibraryConstant.GET_USER_HISTORY);
+        } catch (Exception e) {
+            getUserHistoryResponse.setCode(LibraryConstant.OTHER);
+            getUserHistoryResponse.setErrorMsg(LibraryConstant.OTHERERROR);
+        }
+        return getUserHistoryResponse;
     }
 
 }

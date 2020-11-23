@@ -1,10 +1,6 @@
 package com.adam.repository;
 
-import com.adam.api.request.DeleteByUserIdRequest;
 import com.adam.model.User;
-import com.adam.service.Impl.UserServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
