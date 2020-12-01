@@ -35,16 +35,24 @@ public class BookController {
     @Autowired
     private UserService userService;
 
+
+    @GetMapping(path = "/getOK")
+    public @ResponseBody String getOK() {
+        return "OK";
+    }
+
     //addBook
     @PostMapping(path = "/addBook") //
     public @ResponseBody
     AddBookResponse addBook(@RequestBody AddBookRequest addBookRequest) {
         boolean isSucceeded = false;
+
         Book book = new Book();
         book.setBookId(bookService.getNewBookIdInsertTable());
         book.setBookName(addBookRequest.getBookName());
         book.setBookDate(addBookRequest.getBookDate());
         book.setBookAmount(LibraryConstant.BOOK_AMOUNT_ONLY_ONE);
+
         isSucceeded = bookService.addBook(book);
         AddBookResponse addBookResponse = new AddBookResponse();
         try {
