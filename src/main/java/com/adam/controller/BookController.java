@@ -35,12 +35,6 @@ public class BookController {
     @Autowired
     private UserService userService;
 
-
-    @GetMapping(path = "/getOK")
-    public @ResponseBody String getOK() {
-        return "OK";
-    }
-
     //addBook
     @PostMapping(path = "/addBook") //
     public @ResponseBody
