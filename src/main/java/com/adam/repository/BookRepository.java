@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import javax.transaction.Transactional;
 
+
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
+    //此sql語句抓取book_id欄位去掉第一碼取最大流水序號
     @Query(value = "SELECT MAX(CAST(SUBSTRING(book_id, 2, length(book_id)-1) AS UNSIGNED)) FROM book", nativeQuery = true)
     Integer getMaxBookId();
 

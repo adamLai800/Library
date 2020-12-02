@@ -29,7 +29,9 @@ public class BookServiceImpl implements BookService {
         String getNewBookIdInsertTable = "B" + String.valueOf(getMaxBookId);
         return getNewBookIdInsertTable;
     }
-
+    /*
+    Book物件傳給bookRepository用Override方式
+     */
     @Override
     public boolean addBook(Book book) {
         boolean isSucceeded = false;

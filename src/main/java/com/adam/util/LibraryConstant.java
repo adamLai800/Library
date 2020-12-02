@@ -23,7 +23,7 @@ public class LibraryConstant {
     //Error Message
     public static final String ADD_USER_ERROR = " userService.addUser failure !! ";
     public static final String DELETE_USER_ERROR = " userService.deleteByUserId failure !! ";
-    public static final String ADD_BOOK_ERROR = " bookService.addUser failure !! ";
+    public static final String ADD_BOOK_ERROR = " bookService.addBook failure !! ";
     public static final String DELETE_BOOK_ERROR = " bookService.deleteByUserId failure !! ";
     public static final String ADD_RECORD_ERROR = " 借書手續錯誤 !! ";
     public static final String UPDATE_RECORD_ERROR = " 歸還手續錯誤!! ";

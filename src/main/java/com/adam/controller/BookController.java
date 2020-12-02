@@ -21,12 +21,14 @@ import java.util.ArrayList;
 
 
 @Controller
+//這裡先設定API /api/2.0/book類別
 @RequestMapping(path="/api/2.0/book")
 public class BookController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
 
     @Autowired
+    //這裡引用Autowired 流程是Controller到Service到Repository
     private BookService bookService;
 
     @Autowired
@@ -35,34 +37,41 @@ public class BookController {
     @Autowired
     private UserService userService;
 
-    //addBook
+    /*新增書的API 方式是用Post
+    bookId 是去取bookId欄位目前最大流水序號並加一產生的
+    bookAmount 設定為定值 數量為一本
+     */
     @PostMapping(path = "/addBook") //
     public @ResponseBody
     AddBookResponse addBook(@RequestBody AddBookRequest addBookRequest) {
         boolean isSucceeded = false;
-
         Book book = new Book();
         book.setBookId(bookService.getNewBookIdInsertTable());
         book.setBookName(addBookRequest.getBookName());
         book.setBookDate(addBookRequest.getBookDate());
         book.setBookAmount(LibraryConstant.BOOK_AMOUNT_ONLY_ONE);
-
+        //將book寫入資料表
         isSucceeded = bookService.addBook(book);
         AddBookResponse addBookResponse = new AddBookResponse();
         try {
             if (isSucceeded) {
                 addBookResponse.setBook(book);
+                //狀態值 客製化會參數 20000 為OK
                 addBookResponse.setCode(LibraryConstant.OK);
+                //資訊內容 Book insert successfully!!
                 addBookResponse.setMsg(LibraryConstant.ADD_BOOK_MSG);
             } else {
+                //狀態值 客製化會參數 90001 為NO
                 addBookResponse.setCode(LibraryConstant.NO);
+                //資訊內容 bookService.addBook failure
                 addBookResponse.setErrorMsg(LibraryConstant.ADD_BOOK_ERROR);
             }
         } catch (Exception e) {
+            //狀態值 客製化會參數 99999 為其他錯誤
             addBookResponse.setCode(LibraryConstant.OTHER);
             addBookResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
-
+        //回傳Response
         return addBookResponse;
     }
 

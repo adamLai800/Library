@@ -6,6 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+/*
+用jpa方式mapping在資料庫上
+建立set,get
+回到Book API
+ */
 public class Book {
 
     @Id
