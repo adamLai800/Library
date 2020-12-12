@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import javax.transaction.Transactional;
 
-
+//因會bookRepository 繼承 CrudRepository 不用寫insert資料表 因內建有Crud寫入方式 透過此方式 我只要寫介面就夠了
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
     //此sql語句抓取book_id欄位去掉第一碼取最大流水序號
@@ -18,7 +18,7 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Query(value = "DELETE FROM book WHERE book_id = ? ", nativeQuery = true)
     void deleteByBookId(String bookId);
 
-    @Query(value = "SELECT * FROM book Where book_id = ? " , nativeQuery = true)
+    @Query(value = "SELECT * FROM book Where book_id = ? ", nativeQuery = true)
     Book getBookAll(String bookId);
 
     @Modifying

@@ -51,7 +51,7 @@ public class RecordController {
                 addRecordResponse.setCode(LibraryConstant.NO);
                 addRecordResponse.setErrorMsg(LibraryConstant.ADD_RECORD_ERROR);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             addRecordResponse.setCode(LibraryConstant.OTHER);
             addRecordResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
@@ -77,7 +77,7 @@ public class RecordController {
                 updateRecordResponse.setCode(LibraryConstant.NO);
                 updateRecordResponse.setErrorMsg(LibraryConstant.UPDATE_RECORD_ERROR);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             updateRecordResponse.setCode(LibraryConstant.OTHER);
             updateRecordResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }

@@ -19,16 +19,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
-
+//@Controller是告訴Spring這是Controller
 @Controller
-//這裡先設定API /api/2.0/book類別
+//這裡先設定專案部分URL /api/2.0/book區塊
 @RequestMapping(path="/api/2.0/book")
 public class BookController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
 
     @Autowired
-    //這裡引用Autowired 流程是Controller到Service到Repository
+    //這裡引用Autowired 不需要自己透過new方式產生instance
     private BookService bookService;
 
     @Autowired
@@ -38,25 +38,32 @@ public class BookController {
     private UserService userService;
 
     /*新增書的API 方式是用Post
-    bookId 是去取bookId欄位目前最大流水序號並加一產生的
-    bookAmount 設定為定值 數量為一本
+    前端會先request 物件給我 我就會接收到並回傳AddBookRequest內容
      */
     @PostMapping(path = "/addBook") //
     public @ResponseBody
     AddBookResponse addBook(@RequestBody AddBookRequest addBookRequest) {
         boolean isSucceeded = false;
+        //記得講
         Book book = new Book();
+
+        //bookId的產生是去取目前bookId欄位目前最大流水序號並加一產生的
         book.setBookId(bookService.getNewBookIdInsertTable());
+
         book.setBookName(addBookRequest.getBookName());
         book.setBookDate(addBookRequest.getBookDate());
+
+        //bookAmount 設定為定值 數量為一本
         book.setBookAmount(LibraryConstant.BOOK_AMOUNT_ONLY_ONE);
-        //將book寫入資料表
+        //透過bookService.addBook方法將book object 寫進資料庫
         isSucceeded = bookService.addBook(book);
         AddBookResponse addBookResponse = new AddBookResponse();
         try {
+            //如果true
             if (isSucceeded) {
+                //就會addBookRespons會塞入Book物件
                 addBookResponse.setBook(book);
-                //狀態值 客製化會參數 20000 為OK
+                //狀態值 客製化編碼 20000 為OK
                 addBookResponse.setCode(LibraryConstant.OK);
                 //資訊內容 Book insert successfully!!
                 addBookResponse.setMsg(LibraryConstant.ADD_BOOK_MSG);
@@ -66,8 +73,9 @@ public class BookController {
                 //資訊內容 bookService.addBook failure
                 addBookResponse.setErrorMsg(LibraryConstant.ADD_BOOK_ERROR);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             //狀態值 客製化會參數 99999 為其他錯誤
+            //目前錯誤機制尚未建立完善 之後會繼續調整 重構
             addBookResponse.setCode(LibraryConstant.OTHER);
             addBookResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
@@ -75,7 +83,6 @@ public class BookController {
         return addBookResponse;
     }
 
-    //deleteByBookId
     @DeleteMapping(path = "/deleteByBookId")
     public @ResponseBody
     DeleteByBookIdResponse
@@ -91,7 +98,7 @@ public class BookController {
                 deleteByBookIdResponse.setCode(LibraryConstant.NO);
                 deleteByBookIdResponse.setErrorMsg(LibraryConstant.DELETE_BOOK_ERROR);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             deleteByBookIdResponse.setCode(LibraryConstant.OTHER);
             deleteByBookIdResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
@@ -132,7 +139,7 @@ public class BookController {
             getBookHistoryResponse.setRecord(getRecordByBookId);
             getBookHistoryResponse.setCode(LibraryConstant.OK);
             getBookHistoryResponse.setMsg(LibraryConstant.GET_BOOK_HISTORY);
-        } catch (Exception e) {
+        } catch (Exception ex) {
             getBookHistoryResponse.setCode(LibraryConstant.OTHER);
             getBookHistoryResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }

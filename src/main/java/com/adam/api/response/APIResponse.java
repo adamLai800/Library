@@ -2,7 +2,7 @@ package com.adam.api.response;
 
 public class APIResponse {
 
-    // 狀態值
+    // 狀態值編碼
     private Integer code;
 
     // 成功訊息

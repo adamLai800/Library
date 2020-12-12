@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
         int getMaxUserId = 0 ;
         try {
             getMaxUserId = userRepository.getMaxUserId();
-        } catch (Exception e) {
-            LOG.info(" getNewUserIdInsertTable failed : ", e);
+        } catch (Exception ex) {
+            LOG.info(" getNewUserIdInsertTable failed : ", ex);
         }
         getMaxUserId ++;
         String getNewUserIdInsertTable = "U" + String.valueOf(getMaxUserId);
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.save(user);
             isSucceeded = true;
-        } catch (Exception e) {
-            LOG.error(" save user failed : ", e);
+        } catch (Exception ex) {
+            LOG.error(" save user failed : ", ex);
         }
         return isSucceeded;
     }
@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.deleteByUserId(deleteByUserIdRequest.getUserId());
             isSucceeded = true;
-        } catch (Exception e) {
-            LOG.info(" deleteByUserId failed : ", e);
+        } catch (Exception ex) {
+            LOG.info(" deleteByUserId failed : ", ex);
         }
         return isSucceeded;
     }

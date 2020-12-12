@@ -1,6 +1,6 @@
 package com.adam.api.request;
 
-//傳入書名與可借天數
+//傳入書名與可借閱的天數
 public class AddBookRequest {
 
     private String bookName;

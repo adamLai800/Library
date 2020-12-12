@@ -49,7 +49,7 @@ public class UserController {
                 addUserResponse.setCode(LibraryConstant.NO);
                 addUserResponse.setErrorMsg(LibraryConstant.ADD_USER_ERROR);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             addUserResponse.setCode(LibraryConstant.OTHER);
             addUserResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
@@ -72,7 +72,7 @@ public class UserController {
                 deleteByUserIdResponse.setCode(LibraryConstant.NO);
                 deleteByUserIdResponse.setErrorMsg(LibraryConstant.DELETE_USER_ERROR);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             deleteByUserIdResponse.setCode(LibraryConstant.OTHER);
             deleteByUserIdResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }
@@ -91,7 +91,7 @@ public class UserController {
             getUserHistoryResponse.setRecord(getRecordByBookId);
             getUserHistoryResponse.setCode(LibraryConstant.OK);
             getUserHistoryResponse.setMsg(LibraryConstant.GET_USER_HISTORY);
-        } catch (Exception e) {
+        } catch (Exception ex) {
             getUserHistoryResponse.setCode(LibraryConstant.OTHER);
             getUserHistoryResponse.setErrorMsg(LibraryConstant.OTHERERROR);
         }

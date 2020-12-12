@@ -33,8 +33,8 @@ public class RecordServiceImpl implements RecordService{
         try {
             recordRepository.save(record);
             isSucceeded = true;
-        } catch (Exception e) {
-            LOG.error(" save record failed : ", e);
+        } catch (Exception ex) {
+            LOG.error(" save record failed : ", ex);
         }
         return isSucceeded;
     }
@@ -48,8 +48,8 @@ public class RecordServiceImpl implements RecordService{
                     updateRecordRequest.getUserId(),
                     updateRecordRequest.getBookId());
             isSucceeded = true;
-        } catch (Exception e) {
-            LOG.error(" update record failed : ", e);
+        } catch (Exception ex) {
+            LOG.error(" update record failed : ", ex);
         }
         return isSucceeded;
     }
